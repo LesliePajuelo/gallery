@@ -1,6 +1,7 @@
 import React from 'react';
 import PhotoGrid from './PhotoGrid/PhotoGrid.jsx';
 import Carousel from './Carousel/Carousel.jsx';
+import axios from 'axios';
 
 class App extends React.Component {
   constructor() {
@@ -27,12 +28,24 @@ class App extends React.Component {
     }
   }
 
+  componentDidMount() {
+    fetch('http://localhost:3002/rooms', {
+      method: 'GET',
+      mode: 'cors'
+    })
+    .then((res) => {
+      return res.json()
+    })
+    .then((res) => {
+      console.log(res.body)
+    })
+  }
+
   toggleCarousel() {
     this.state.carouselActive ? this.setState({carouselActive: false}) : this.setState({carouselActive: true});
   }
 
   render() {
-
     if(this.state.carouselActive) {
       return (
         <div>
